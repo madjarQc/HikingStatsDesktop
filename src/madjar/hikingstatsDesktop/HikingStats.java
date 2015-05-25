@@ -22,9 +22,9 @@ public class HikingStats {
     public static final String MESSAGE_CSV_CREATE = "CSV FILE CREATED";
     public static final String MESSAGE_CSV_UPDATE = "CSV FILE UPDATED";
     public static final String MESSAGE_CSV_WRITE_ERROR = "WRITTING ERROR IN CSV";        
-    public static final String TRACK = "gx:Track";
-    public static final String TIMESTAMP = "when";
-    public static final String COORDINATE = "gx:coord";
+    public static final String KML_PARENT = "gx:Track";
+    public static final String KML_CHILD_TIME = "when";
+    public static final String KML_CHILD_COORDINATE = "gx:coord";
 
     public HikingStats() {
 
@@ -44,9 +44,7 @@ public class HikingStats {
             
             List<AlexPoints3D> points;
 
-            map = parse.getContentMap(HikingStats.TRACK, HikingStats.TIMESTAMP, HikingStats.COORDINATE);
-
-            System.out.println("map is !!!!! " + map.toString());
+            map = parse.getParsedContent();
 
             //test if sorted
             Set keySet = map.keySet();
@@ -83,7 +81,6 @@ public class HikingStats {
             
             //calculate distance with data
             Travel travel = new Travel(date1, date2, listOfPoints);
-            System.out.println("travel : " + travel);
             System.out.println("distance travel -- " + travel.getDistance());
             System.out.println("duration travel -- " + travel.getDuration());
 
