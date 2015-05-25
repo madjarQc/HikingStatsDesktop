@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
  */
 public class Track extends Travel {
 
-    private List<AlexPoints3D> listOfPoints = new ArrayList<>();
+    private List<AlexPoints3D> listOfTrackPoints = new ArrayList<>();
 
     /**
      * Construct single track from start to finish time with a list of point
@@ -23,7 +23,7 @@ public class Track extends Travel {
     public Track(DateTime startTime, DateTime finishTime, List listOfPoints) {
         setStartTime(startTime);
         setFinishTime(finishTime);
-        this.listOfPoints = listOfPoints;
+        this.listOfTrackPoints = listOfPoints;
         setDistance(this.calculateDistance());
         setDuration(this.calculateDuration());
         setAvgSp(calculateAvgSp(this.getDistance(), this.getDuration()));
@@ -45,7 +45,7 @@ public class Track extends Travel {
 
         //SQL query to get the start and finish time of the track
         setName(name);
-        this.listOfPoints = getListOfPoints(name);
+        this.listOfTrackPoints = getListOfTrackPoints(name);
 
     }
 
@@ -55,24 +55,24 @@ public class Track extends Travel {
      * @param name
      * @return
      */
-    public List getListOfPoints(String name) {
+    public final List getListOfTrackPoints(String name) {
 
         //SQL Query from name to get a list of point
-        return listOfPoints;
+        return listOfTrackPoints;
     }
 
-    public void setListOfPoints(List listOfPoints) {
-        this.listOfPoints = listOfPoints;
+    public void setListOfTrackPoints(List listOfPoints) {
+        this.listOfTrackPoints = listOfPoints;
     }
 
     @Override
-    public double calculateDistance() {
+    public final double calculateDistance() {
 
         double distanceInMeter = 0;
 
-        for (int i = 0; i < listOfPoints.size() - 1; i++) {
+        for (int i = 0; i < listOfTrackPoints.size() - 1; i++) {
 
-            distanceInMeter += listOfPoints.get(i).distance(listOfPoints.get(i + 1));
+            distanceInMeter += listOfTrackPoints.get(i).distance(listOfTrackPoints.get(i + 1));
 
         }
 
@@ -81,7 +81,7 @@ public class Track extends Travel {
     }
 
     @Override
-    public double calculateDuration() {
+    public final double calculateDuration() {
 
         double durationInSec;
 
@@ -92,7 +92,7 @@ public class Track extends Travel {
     }
 
     @Override
-    public double calculateAvgMvSp() {
+    public final double calculateAvgMvSp() {
 
         double pAvgMvSp = 0;
 
@@ -101,12 +101,12 @@ public class Track extends Travel {
     }
 
     @Override
-    public double calculateMinAltitude() {
+    public final double calculateMinAltitude() {
 
-        double pMinAltitude = listOfPoints.get(0).getZ();
+        double pMinAltitude = listOfTrackPoints.get(0).getZ();
         double currentPoint = 0;
 
-        for (AlexPoints3D point : listOfPoints) {
+        for (AlexPoints3D point : listOfTrackPoints) {
 
             currentPoint = point.getZ();
             if (currentPoint < pMinAltitude) {
@@ -122,12 +122,12 @@ public class Track extends Travel {
     }
 
     @Override
-    public double calculateMaxAltitude() {
+    public final double calculateMaxAltitude() {
 
-        double pMinAltitude = listOfPoints.get(0).getZ();
+        double pMinAltitude = listOfTrackPoints.get(0).getZ();
         double currentPoint = 0;
 
-        for (AlexPoints3D point : listOfPoints) {
+        for (AlexPoints3D point : listOfTrackPoints) {
 
             currentPoint = point.getZ();
             if (currentPoint > pMinAltitude) {
@@ -148,14 +148,14 @@ public class Track extends Travel {
      * @return double, the sum of positive gain in the listOfPoint
      */
     @Override
-    public double calculateGain() {
+    public final double calculateGain() {
 
         double pGain = 0;
 
-        for (int i = 0; i < listOfPoints.size() - 1; i++) {
+        for (int i = 0; i < listOfTrackPoints.size() - 1; i++) {
 
-            double a = listOfPoints.get(i).getZ();
-            double b = listOfPoints.get(i + 1).getZ();
+            double a = listOfTrackPoints.get(i).getZ();
+            double b = listOfTrackPoints.get(i + 1).getZ();
 
             //positive gain ?
             if (b - a > 0) {
