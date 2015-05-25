@@ -179,11 +179,6 @@ public class Travel {
         return maxAltitude;
     }
 
-    /**
-     * TODO
-     *
-     * @param maxAltitude
-     */
     public void setMaxAltitude(double maxAltitude) {
         this.maxAltitude = maxAltitude;
     }
@@ -224,6 +219,38 @@ public class Travel {
 
         return 0;
 
+    }
+    
+    public double calculateMinAltitude() {
+        double pMinAltitude = 0;
+
+        for (Track trackArrTrack1 : trackArray) {
+
+            if (trackArrTrack1.getMinAltitude() <= pMinAltitude) {
+
+                pMinAltitude = trackArrTrack1.getMinAltitude();
+                
+            }
+
+        }
+        return pMinAltitude;
+    }
+    
+    
+    public double calculateMaxAltitude() {
+        double pMaxAltitude = 0;
+
+        for (Track trackArrTrack1 : trackArray) {
+
+            if (trackArrTrack1.getMaxAltitude() >= pMaxAltitude) {
+
+                pMaxAltitude = trackArrTrack1.getMaxAltitude();
+
+            }
+
+        }
+
+        return pMaxAltitude;
     }
 
     public double calculateGain(double pMinAltitude, double pMaxAltitude) {
