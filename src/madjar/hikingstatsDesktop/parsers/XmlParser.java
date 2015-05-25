@@ -6,6 +6,7 @@ import java.util.TreeMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import madjar.hikingstatsDesktop.HikingStats;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -23,6 +24,7 @@ public class XmlParser {
     DocumentBuilderFactory factory;
     DocumentBuilder builder;
     Document doc;
+    TreeMap parsedContent;
 
     public XmlParser(String filePath) throws ParserConfigurationException, IOException, SAXException {
 
@@ -30,9 +32,17 @@ public class XmlParser {
         this.factory = DocumentBuilderFactory.newInstance();
         this.builder = factory.newDocumentBuilder();
         this.doc = builder.parse(file);
-
         doc.getDocumentElement().normalize();
+        this.parsedContent = parseNewContent(HikingStats.KML_PARENT, HikingStats.KML_CHILD_TIME, HikingStats.KML_CHILD_COORDINATE);
 
+    }
+
+    public TreeMap getParsedContent() {
+        return parsedContent;
+    }
+
+    public void setParsedContent(TreeMap parsedContent) {
+        this.parsedContent = parsedContent;
     }
 
     /**
@@ -60,16 +70,16 @@ public class XmlParser {
         }
         return contentList;
     }*/
-
+    
     /**
-     * Get the content of two children from pParent in the form of Key -> value
+     * From a single kml file, get the content of two children from pParent in the form of Key -> value
      *
      * @param pParent
      * @param pTagKey
      * @param pTagValue
-     * @return TreeMap, the sorted map of the found text
+     * @return TreeMap, the sorted map of the found text values of kml
      */
-    public TreeMap getContentMap(String pParent, String pTagKey, String pTagValue) {
+    public TreeMap parseNewContent(String pParent, String pTagKey, String pTagValue) {
 
         System.out.println("----------------------------");
         System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
@@ -111,9 +121,5 @@ public class XmlParser {
 
         return contentMap;
     }
-    
-    
-    
-    
     
 }
