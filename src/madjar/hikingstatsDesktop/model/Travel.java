@@ -17,21 +17,24 @@ public class Travel {
     private double duration;
     private double avgSp;
     private double avgMovSp;
-    private double gain;
     private double minAltitude;
     private double maxAltitude;
+    private double gain;
+    private double pitch;
+
 
     public Travel() {
 
     }
 
     /**
-     * Constructor to build the blockOfPoints from start time to finish time to be treated by Track
-     * Tracks are build and put in an array.
-     * This array is then looped to compile info for each track in Travel
+     * Constructor to build the blockOfPoints from start time to finish time to
+     * be treated by Track Tracks are build and put in an array. This array is
+     * then looped to compile info for each track in Travel
+     *
      * @param startTime
      * @param finishTime
-     * @param blockOfPoints 
+     * @param blockOfPoints
      */
     public Travel(DateTime startTime, DateTime finishTime, ArrayList<AlexPoints3D> blockOfPoints) {
         trackArray = new ArrayList<>();
@@ -84,8 +87,11 @@ public class Travel {
         this.minAltitude = this.getMinAltitude();
         this.maxAltitude = this.getMaxAltitude();
 
-        setGain(calculateGain(getMinAltitude(), getMaxAltitude()));
+        setGain(calculateGain());
         this.gain = this.getGain();
+        
+        setPitch(calculatePitch(minAltitude, maxAltitude));
+        this.pitch = this.getPitch();
     }
 
     public ArrayList getTrackArray() {
@@ -154,6 +160,14 @@ public class Travel {
         this.avgMovSp = avgMovSp;
     }
 
+    public double getMinAltitude() {
+        return minAltitude;
+    }
+
+    public void setMinAltitude(double minAltitude) {
+        this.minAltitude = minAltitude;
+    }
+    
     public double getGain() {
         return gain;
     }
@@ -162,13 +176,15 @@ public class Travel {
         this.gain = gain;
     }
 
-    public double getMinAltitude() {
-        return minAltitude;
+    public double getPitch() {
+        return pitch;
     }
 
-    public void setMinAltitude(double minAltitude) {
-        this.minAltitude = minAltitude;
+    public void setPitch(double pitch) {
+        this.pitch = pitch;
     }
+    
+    
 
     /**
      * TODO
@@ -220,7 +236,7 @@ public class Travel {
         return 0;
 
     }
-    
+
     public double calculateMinAltitude() {
         double pMinAltitude = 0;
 
@@ -229,14 +245,13 @@ public class Travel {
             if (trackArrTrack1.getMinAltitude() <= pMinAltitude) {
 
                 pMinAltitude = trackArrTrack1.getMinAltitude();
-                
+
             }
 
         }
         return pMinAltitude;
     }
-    
-    
+
     public double calculateMaxAltitude() {
         double pMaxAltitude = 0;
 
@@ -253,7 +268,24 @@ public class Travel {
         return pMaxAltitude;
     }
 
-    public double calculateGain(double pMinAltitude, double pMaxAltitude) {
+    public double calculateGain() {
+        double pGain = 0;
+
+        for (Track trackArrTrack1 : trackArray) {
+
+            if (trackArrTrack1.getMaxAltitude() >= pGain) {
+
+                pGain = trackArrTrack1.getMaxAltitude();
+
+            }
+
+        }
+        
+        return pGain;
+
+    }
+
+    public double calculatePitch(double pMinAltitude, double pMaxAltitude) {
 
         return pMaxAltitude - pMinAltitude;
 

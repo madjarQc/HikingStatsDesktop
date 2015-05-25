@@ -13,7 +13,8 @@ public class Track extends Travel {
     private List<AlexPoints3D> listOfPoints = new ArrayList<>();
 
     /**
-     * Construct single track from start to finish time with a list of point with all complete parametre (no getX()==0)
+     * Construct single track from start to finish time with a list of point
+     * with all complete parametre (no getX()==0)
      *
      * @param startTime
      * @param finishTime
@@ -25,6 +26,13 @@ public class Track extends Travel {
         this.listOfPoints = listOfPoints;
         setDistance(this.calculateDistance());
         setDuration(this.calculateDuration());
+        setAvgSp(calculateAvgSp(this.getDistance(), this.getDuration()));
+        setAvgMovSp(calculateAvgMvSp());
+        setMinAltitude(this.calculateMaxAltitude());
+        setMaxAltitude(this.calculateMaxAltitude());
+        setGain(this.calculateGain());
+        setPitch(this.calculatePitch(getMinAltitude(), getMaxAltitude()));
+
     }
 
     /**
@@ -68,8 +76,6 @@ public class Track extends Travel {
 
         }
 
-        distanceInMeter = distanceInMeter * 10;
-
         return distanceInMeter;
 
     }
@@ -85,9 +91,38 @@ public class Track extends Travel {
         return durationInSec;
     }
 
-    public double calculateAvgMvSP(List listOfPoints) {
+    @Override
+    public double calculateAvgMvSp() {
 
-        return 1;
+        double pAvgMvSp = 0;
+
+        return pAvgMvSp;
+
     }
+
+    /**
+     * Gain : vertical interval
+     * @return double, the sum of positive gain in the listOfPoint
+     */
+    @Override
+    public double calculateGain() {
+
+        double pGain = 0;
+
+        for (int i = 0; i < listOfPoints.size() - 1; i++) {
+            
+            double a = listOfPoints.get(i).getZ();
+            double b = listOfPoints.get(i+1).getZ();
+            
+           //positive gain ?
+            if (b - a > 0) {
+
+                pGain += b - a;
+            }
+        }
+
+        return pGain;
+
+     }
 
 }
