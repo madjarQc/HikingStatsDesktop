@@ -57,10 +57,10 @@ public class HikingStats {
                 String key = (String) i.next();
                 String value = (String) map.get(key);
 
-                System.out.println(key + " -> " + value);
+                //System.out.println(key + " -> " + value);
                 
                 DateTime date = new DateTime(key);
-                System.out.println("date " + key);
+                //System.out.println("date " + key);
                 
                 double x;
                 double y;
@@ -72,7 +72,7 @@ public class HikingStats {
                 y = Double.parseDouble(split[1]);
                 z = Double.parseDouble(split[2]);
                 
-                System.out.println("x - y - z " + x + " - " + y + " - " + z);
+                //System.out.println("x - y - z " + x + " - " + y + " - " + z);
                 
                 AlexPoints3D point = new AlexPoints3D(date, x, y, z);
                 listOfPoints.add(point);
@@ -83,8 +83,9 @@ public class HikingStats {
             
             //calculate distance with data
             Travel travel = new Travel(date1, date2, listOfPoints);
-            System.out.println("distance -- " + travel.getDistance());
-            System.out.println("duration -- " + travel.getDuration());
+            System.out.println("travel : " + travel);
+            System.out.println("distance travel -- " + travel.getDistance());
+            System.out.println("duration travel -- " + travel.getDuration());
 
         } catch (ParserConfigurationException | IOException | SAXException ex) {
             Logger.getLogger(HikingStats.class.getName()).log(Level.SEVERE, null, ex);

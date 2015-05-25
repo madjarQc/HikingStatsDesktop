@@ -28,7 +28,7 @@ public class Track extends Travel {
         setDuration(this.calculateDuration());
         setAvgSp(calculateAvgSp(this.getDistance(), this.getDuration()));
         setAvgMovSp(calculateAvgMvSp());
-        setMinAltitude(this.calculateMaxAltitude());
+        setMinAltitude(this.calculateMinAltitude());
         setMaxAltitude(this.calculateMaxAltitude());
         setGain(this.calculateGain());
         setPitch(this.calculatePitch(getMinAltitude(), getMaxAltitude()));
@@ -100,8 +100,51 @@ public class Track extends Travel {
 
     }
 
+    @Override
+    public double calculateMinAltitude() {
+
+        double pMinAltitude = listOfPoints.get(0).getZ();
+        double currentPoint = 0;
+
+        for (AlexPoints3D point : listOfPoints) {
+
+            currentPoint = point.getZ();
+            if (currentPoint < pMinAltitude) {
+
+                pMinAltitude = currentPoint;
+
+            }
+
+        }
+
+        return pMinAltitude;
+
+    }
+
+    @Override
+    public double calculateMaxAltitude() {
+
+        double pMinAltitude = listOfPoints.get(0).getZ();
+        double currentPoint = 0;
+
+        for (AlexPoints3D point : listOfPoints) {
+
+            currentPoint = point.getZ();
+            if (currentPoint > pMinAltitude) {
+
+                pMinAltitude = currentPoint;
+
+            }
+
+        }
+
+        return pMinAltitude;
+
+    }
+
     /**
      * Gain : vertical interval
+     *
      * @return double, the sum of positive gain in the listOfPoint
      */
     @Override
@@ -110,11 +153,11 @@ public class Track extends Travel {
         double pGain = 0;
 
         for (int i = 0; i < listOfPoints.size() - 1; i++) {
-            
+
             double a = listOfPoints.get(i).getZ();
-            double b = listOfPoints.get(i+1).getZ();
-            
-           //positive gain ?
+            double b = listOfPoints.get(i + 1).getZ();
+
+            //positive gain ?
             if (b - a > 0) {
 
                 pGain += b - a;
@@ -123,6 +166,6 @@ public class Track extends Travel {
 
         return pGain;
 
-     }
+    }
 
 }

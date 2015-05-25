@@ -95,8 +95,8 @@ public class XmlParser {
 
                 for (int key = 0; key < trackElement.getElementsByTagName(pTagKey).getLength(); key++) {
 
-                    System.out.println("key : " + trackElement.getElementsByTagName(pTagKey).item(key).getTextContent());
-                    System.out.println("value : " + trackElement.getElementsByTagName(pTagValue).item(key).getTextContent());
+                    //System.out.println("key : " + trackElement.getElementsByTagName(pTagKey).item(key).getTextContent());
+                    //System.out.println("value : " + trackElement.getElementsByTagName(pTagValue).item(key).getTextContent());
 
                     contentMap.put(
                             trackElement.getElementsByTagName(pTagKey).item(key).getTextContent(),

@@ -255,6 +255,7 @@ public class Travel {
     public double calculateMaxAltitude() {
         double pMaxAltitude = 0;
 
+        System.out.println("track array in calculateMaxAltitude : " + trackArray);
         for (Track trackArrTrack1 : trackArray) {
 
             if (trackArrTrack1.getMaxAltitude() >= pMaxAltitude) {
