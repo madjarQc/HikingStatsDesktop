@@ -22,14 +22,14 @@ public class Travel {
     private double gain;
     private double pitch;
 
-
+    
     public Travel() {
 
     }
 
     /**
      * Constructor to build the blockOfPoints from start time to finish time to
-     * be treated by Track Tracks are build and put in an array. This array is
+     * be treated by Track. Tracks are build and put in an array. This array is
      * then looped to compile info for each track in Travel
      *
      * @param startTime
@@ -58,6 +58,7 @@ public class Travel {
                 //add the current points to the list to send
             } else {
 
+                //update appropriate low and high time to give to track
                 if (blockOfPoints.get(i).getDate().isBefore(lowTime)) {
                     lowTime = blockOfPoints.get(i).getDate();
                 }
@@ -73,6 +74,7 @@ public class Travel {
         this.trackArray.add(new Track(lowTime, highTime, pointsForTrack));
         this.trackArray = this.getTrackArray();
 
+        //calculate all params for Travel
         setDistance(calculateDistance());
         this.distance = this.getDistance();
 
@@ -221,8 +223,8 @@ public class Travel {
     }
 
     public double calculateAvgSp(double pDistance, double pDuration) {
-        System.out.println("calc dist : " + pDistance);
-        System.out.println("calc dura : " + pDuration);
+        System.out.println("calc dist by " + this.getClass().getSimpleName() + " - " + pDistance);
+        System.out.println("calc dura " + this.getClass().getSimpleName() + " - " + pDuration);
         return pDistance / pDuration;
     }
 
