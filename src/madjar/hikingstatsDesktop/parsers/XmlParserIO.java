@@ -1,6 +1,6 @@
 package madjar.hikingstatsDesktop.parsers;
 
-
+import java.util.ArrayList;
 import java.util.TreeMap;
 import madjar.hikingstatsDesktop.HikingStats;
 import org.joda.time.DateTime;
@@ -43,6 +43,14 @@ public abstract class XmlParserIO {
         */
         
         return message;
+        
+    }
+    
+    public ArrayList readCsvToArrayList(){
+        
+        ArrayList list = new ArrayList();
+        
+        return list;
         
     }
     
