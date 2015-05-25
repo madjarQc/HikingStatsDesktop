@@ -25,6 +25,14 @@ public class Travel {
 
     }
 
+    /**
+     * Constructor to build the blockOfPoints from start time to finish time to be treated by Track
+     * Tracks are build and put in an array.
+     * This array is then looped to compile info for each track in Travel
+     * @param startTime
+     * @param finishTime
+     * @param blockOfPoints 
+     */
     public Travel(DateTime startTime, DateTime finishTime, ArrayList<AlexPoints3D> blockOfPoints) {
         trackArray = new ArrayList<>();
         this.startTime = startTime;
